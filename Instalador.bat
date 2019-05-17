@@ -15,7 +15,7 @@ del AluguelCarros\Services\*.class
 del AluguelCarros\*.class 
 
 cd c:
-c: > nul
+c:
 
 ECHO Criando pasta do arquivo em %cd%...
 mkdir "Projeto Lmf"
@@ -36,6 +36,8 @@ echo java -jar src.jar > "Projeto Lmf.bat"
 set p=%cd%
 cd %userprofile%\Desktop
 del "Projeto Lmf.bat"
+del "reserva.txt"
+copy nul reserva.txt
 echo cd %p% >> "Projeto Lmf.bat"
 echo cls >> "Projeto Lmf.bat"
 echo java -jar src.jar >> "Projeto Lmf.bat"
