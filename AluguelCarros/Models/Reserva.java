@@ -139,7 +139,7 @@ public class Reserva {
 				// Representa o Preço Total das Reservas
 				Double precoTotal = 0.00;
 				// Mensagem Formatada para Apresentar a Reserva e seus Detalhes
-				String mensagem = "____________________________________________________________________";
+				String mensagem = "__________________________________________________________________________________________________________________";
 				// Tipos de Carros Oferecidos pela Loja
 				mensagem += "\n| Opcoes de Carro: "
 						 +  "\n|\t" + Arrays.toString(loja.getCarros()).replace('[',' ').replace(']',' ');
@@ -151,14 +151,16 @@ public class Reserva {
 				for(int i = 0; i < reserva.getDatas().length; i++) {
 					mensagem += "\n|\tData: " + Util.DataParaString(Util.StringParaData(reserva.getDatas()[i]))
 							 +  " | Dia de Semana: " + (diaSemana.get(i) ? "Sim" : "Nao")
-							 +  " | Preco: R$" 
-									+ String.format("%.2f", (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0)));
+							 +  " | Preco Regular: R$" 
+									+ String.format("%.2f", (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0)))
+							 +  " | Preco Premium: R$" 
+									+ String.format("%.2f", (diaSemana.get(i) == true ? loja.getValorSemana(1) : loja.getValorFds(1)));
 					// Soma os Valores para Apresentar o Valor Total no Fim
 					precoTotal += (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0));
 				}
-				mensagem += "\n____________________________________________________________________";
+				mensagem += "\n__________________________________________________________________________________________________________________";
 				mensagem += "\n| Valor Total: R$" + String.format("%.2f", precoTotal);
-				mensagem += "\n____________________________________________________________________\n";
+				mensagem += "\n__________________________________________________________________________________________________________________\n";
 				
 				System.out.println("\n" + mensagem + "\n");
 			}
