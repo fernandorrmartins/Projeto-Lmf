@@ -1,6 +1,6 @@
 # Projeto-Lmf
 
-<h2>Requisitos:<\h2>
+<h2>Requisitos:</h2>
 <ol>
 	<li>Ter o JDK instalado<li>
 </ol>
