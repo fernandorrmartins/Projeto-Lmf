@@ -17,7 +17,7 @@
 	</ul>
 	<li>Ter o JDK instalado</li>
 	<ul>
-		<li>Criar variável de ambiente apontando para a pasta bin dentro do JDK</li>
+		<li>Adicionar a variável de ambiente PATh caminho apontando para a pasta bin dentro do JDK</li>
 		<li>Link para Download:</br>
 		https://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html</li>
 	</ul>
