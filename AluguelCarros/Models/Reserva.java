@@ -112,33 +112,47 @@ public class Reserva {
 	/* Método estático responsável por analisar e apresentar ao usuário os melhores valores para sua necessidade. */
 	public static void ApresentarMelhoresPropostas(List<Reserva> reservas, HashMap<String, Loja> map){
 		try {
+			// Contador de Reservas
 			int contador = 0;
 			for(Reserva reserva : reservas) {
+				// Implementa a Reserva
 				contador++;
+				// Apresenta Número da Reserva
 				System.out.println("\t\t\tReserva: " + contador);
+				
 				if(!VerificarSeQtdCondizComTipoDeCarro(reserva)) { return; }
 				if(VerificarSeDataJaPassou(reserva.getDatas())) { return; }
 				
+				// Lista de Booleanos que os Indices representam se o Indice do Array de Datas é ou não Dia da Semana
 				List<Boolean> diaSemana = new ArrayList<Boolean>();
 				
+				// Percorrer o Array de Datas para Preencher a Lista de Booleans
 				for(int i = 0; i < reserva.getDatas().length; i++){
 					diaSemana.add(PegarSeEFDS(Util.PegarDiaDaSemanaComoInt(Util.StringParaData(reserva.getDatas()[i]))));
 				}
 				
+				// Recupera a Loja pelo Tipo de Carro
 				Loja loja = (reserva.getTipoCarro().equals("compacto") ? map.get("SouthCar")
 						  : (reserva.getTipoCarro().equals("esportivo") ? map.get("WestCar")
 						  : map.get("NorthCar")));
 				
+				// Representa o Preço Total das Reservas
 				Double precoTotal = 0.00;
+				// Mensagem Formatada para Apresentar a Reserva e seus Detalhes
 				String mensagem = "____________________________________________________________________";
+				// Tipos de Carros Oferecidos pela Loja
 				mensagem += "\n| Opcoes de Carro: " + Arrays.toString(loja.getCarros()).replace('[',' ').replace(']',' ');
+				// Quantidade de Pessoas para a Reserva
 				mensagem += "\n| Quantidade de Pessoas: " + reserva.getQtdPassageiros();
+				// Apresenta as Datas Solicitadas e seus Valores
 				mensagem += "\n| Datas e Valores:";
+				// Percorre as Datas
 				for(int i = 0; i < reserva.getDatas().length; i++) {
 					mensagem += "\n|\tData: " + Util.DataParaString(Util.StringParaData(reserva.getDatas()[i]))
 							 +  " | Dia de Semana: " + (diaSemana.get(i) ? "Sim" : "Nao")
 							 +  " | Preco: R$" 
 									+ String.format("%.2f", (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0)));
+					// Soma os Valores para Apresentar o Valor Total no Fim
 					precoTotal += (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0));
 				}
 				mensagem += "\n____________________________________________________________________";
@@ -152,6 +166,7 @@ public class Reserva {
 		}
 	}
 	
+	/* Método Estático que Verifica se a Quantidade de Pessoas informada condiz com o Tipo do Carro Solicitado */
 	private static boolean VerificarSeQtdCondizComTipoDeCarro(Reserva reserva){
 		boolean condiz = false;
 		
@@ -178,6 +193,7 @@ public class Reserva {
 		return condiz;
 	}
 	
+	/* Método Estático que Verifica se a Data solicitada já passou ou ainda não */
 	private static boolean VerificarSeDataJaPassou(String[] datas) throws Exception {
 		boolean passou = false;
 		for(String d : datas) {
@@ -196,10 +212,11 @@ public class Reserva {
 		return passou;
 	}
 	
+	/* Método Estático que Verifica se o Dia é ou não Fim de Semana pelo seu Número */
 	private static boolean PegarSeEFDS(int dia) {
 		boolean fds = true;
 		
-		if(0 < dia && dia < 7) { fds = false; }
+		if(1 < dia && dia < 7) { fds = false; }
 		
 		return fds;
 	}
