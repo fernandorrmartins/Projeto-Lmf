@@ -14,7 +14,9 @@ public class Programa {
 			HashMap<String, Loja> map = Loja.CriarLojas();
 			List<Reserva> reservas = Reserva.CarregarPedidos();
 			
-			System.out.println("Pressione qualquer tecla para encerrar...");
+			if(reservas.size() > 0) { Reserva.ApresentarMelhoresPropostas(reservas, map); }
+			
+			System.out.println("\nPressione qualquer tecla para encerrar...");
 			new Scanner(System.in).nextLine();
 		} catch(Exception e){
 			System.out.println(e.getMessage());

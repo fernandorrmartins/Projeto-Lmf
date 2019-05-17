@@ -30,7 +30,7 @@ del /Q "Projeto Lmf.bat" > NUL
 copy "%p%\src.jar" src.jar
 del "%p%\src.jar"
 
-ECHO [{"Nome":"SouthCar", "ValorSemana":[210.00, 150.00], "ValorFds":[200.00, 90.00], "QtdPessoas":4},{"Nome":"WestCar", "ValorSemana":[530.00, 150.00], "ValorFds":[200.00, 90.00], "QtdPessoas":2},{"Nome":"NorthCar", "ValorSemana":[630.00, 580.00], "ValorFds":[600.00, 590.00], "QtdPessoas":7}] >> Lojas.json
+ECHO [{"Nome":"SouthCar", "ValorSemana":[210.00, 150.00], "ValorFds":[200.00, 90.00], "QtdPessoas":4, "Carros":["Compacto Familia 1","Compacto Familia 2","Compacto Familia 3"]},{"Nome":"WestCar", "ValorSemana":[530.00, 150.00], "ValorFds":[200.00, 90.00], "QtdPessoas":2, "Carros":["Ferrari","Camaro","Convercivel"]},{"Nome":"NorthCar", "ValorSemana":[630.00, 580.00], "ValorFds":[600.00, 590.00], "QtdPessoas":7, "Carros":["Van","Micro Onibus","Combi"]}] >> Lojas.json
 
 echo java -jar src.jar > "Projeto Lmf.bat"
 set p=%cd%

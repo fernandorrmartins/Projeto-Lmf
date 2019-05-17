@@ -1,5 +1,7 @@
 package AluguelCarros.Models;
 
+import AluguelCarros.Services.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Files;
@@ -7,6 +9,9 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+
+import java.sql.Date;
 
 /* Objeto responsável por representar as Reservas de Clientes */
 public class Reserva {
@@ -43,7 +48,7 @@ public class Reserva {
 		 * Se não houver erro preenche os atributos da Classe com seus respectivos valores.
 		 */
 		} else {
-			this.TipoCarro = p[0];
+			this.TipoCarro = p[0].toLowerCase();
 			this.QtdPassageiros = Integer.valueOf(p[1]);
 			this.Datas = p[2].split(",");
 			//System.out.println(this.TipoCarro + " " + this.QtdPassageiros + " " + Arrays.toString(Datas));
@@ -105,8 +110,98 @@ public class Reserva {
 	}
 	
 	/* Método estático responsável por analisar e apresentar ao usuário os melhores valores para sua necessidade. */
-	public static void ApresentarMelhoresPropostas(List<Reserva> reserva){
+	public static void ApresentarMelhoresPropostas(List<Reserva> reservas, HashMap<String, Loja> map){
+		try {
+			int contador = 0;
+			for(Reserva reserva : reservas) {
+				contador++;
+				System.out.println("\t\t\tReserva: " + contador);
+				if(!VerificarSeQtdCondizComTipoDeCarro(reserva)) { return; }
+				if(VerificarSeDataJaPassou(reserva.getDatas())) { return; }
+				
+				List<Boolean> diaSemana = new ArrayList<Boolean>();
+				
+				for(int i = 0; i < reserva.getDatas().length; i++){
+					diaSemana.add(PegarSeEFDS(Util.PegarDiaDaSemanaComoInt(Util.StringParaData(reserva.getDatas()[i]))));
+				}
+				
+				Loja loja = (reserva.getTipoCarro().equals("compacto") ? map.get("SouthCar")
+						  : (reserva.getTipoCarro().equals("esportivo") ? map.get("WestCar")
+						  : map.get("NorthCar")));
+				
+				Double precoTotal = 0.00;
+				String mensagem = "____________________________________________________________________";
+				mensagem += "\n| Opcoes de Carro: " + Arrays.toString(loja.getCarros()).replace('[',' ').replace(']',' ');
+				mensagem += "\n| Quantidade de Pessoas: " + reserva.getQtdPassageiros();
+				mensagem += "\n| Datas e Valores:";
+				for(int i = 0; i < reserva.getDatas().length; i++) {
+					mensagem += "\n|\tData: " + Util.DataParaString(Util.StringParaData(reserva.getDatas()[i]))
+							 +  " | Dia de Semana: " + (diaSemana.get(i) ? "Sim" : "Nao")
+							 +  " | Preco: R$" 
+									+ String.format("%.2f", (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0)));
+					precoTotal += (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0));
+				}
+				mensagem += "\n____________________________________________________________________";
+				mensagem += "\n| Valor Total: R$" + String.format("%.2f", precoTotal);
+				mensagem += "\n____________________________________________________________________\n";
+				
+				System.out.println("\n" + mensagem + "\n");
+			}
+		} catch(Exception e) {
+			System.out.println("Não foi possível avaliar a reserva! Verifique o formato das reservas!");
+		}
+	}
+	
+	private static boolean VerificarSeQtdCondizComTipoDeCarro(Reserva reserva){
+		boolean condiz = false;
 		
+		if(reserva.getQtdPassageiros() < 0 || reserva.getQtdPassageiros() > 7){
+			System.out.println("\n______________________________________________________________"
+							 + "\n| Quantidade de pessoas invalida!"
+							 + "\n______________________________________________________________");
+		} else if((reserva.getTipoCarro().equals("compacto") && reserva.getQtdPassageiros() > 4)
+			||(reserva.getTipoCarro().equals("esportivo") && reserva.getQtdPassageiros() > 2)
+			||(reserva.getTipoCarro().equals("suv") && reserva.getQtdPassageiros() > 7)){
+			System.out.println("______________________________________________________________"
+							+  "\n| Tipo de carro nao condiz com quantidade de passageiros.\n| Segue lista de quantidade de pessoas por Tipo de Carro:\n| Esportivo: 2 pessoas\n| Compacto: 4 pessoas\n| SUV: 7 pessoas"
+							+ "\n______________________________________________________________");
+		} else if(!reserva.getTipoCarro().equals("compacto")
+				&& !reserva.getTipoCarro().equals("esportivo")
+				&& !reserva.getTipoCarro().equals("suv")) {
+			System.out.println("\n______________________________________________________________"
+							 + "\n| Tipo de carro incorreto!"
+							 + "\n______________________________________________________________");
+		} else {
+			condiz = true;
+		}
+		
+		return condiz;
+	}
+	
+	private static boolean VerificarSeDataJaPassou(String[] datas) throws Exception {
+		boolean passou = false;
+		for(String d : datas) {
+			Date hoje = new Date(System.currentTimeMillis());
+			Date data = Util.StringParaData(d);
+			
+			if(hoje.after(data)) {
+				passou = true;
+				System.out.println("\n______________________________________________________________"
+								+ "\n| A data " + Util.DataParaString(data) + " e invalida!\n| Por favor defina uma nova data!"
+								+ "\n______________________________________________________________");
+				break;
+			}
+		}
+		
+		return passou;
+	}
+	
+	private static boolean PegarSeEFDS(int dia) {
+		boolean fds = true;
+		
+		if(0 < dia && dia < 7) { fds = false; }
+		
+		return fds;
 	}
 	
 	/*

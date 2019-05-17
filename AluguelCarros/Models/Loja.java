@@ -1,6 +1,7 @@
 package AluguelCarros.Models;
 
 import java.util.HashMap;
+import java.util.Arrays;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,15 +30,18 @@ public class Loja {
 	 * Indice = 1 -> Valor de Clientes Premium durante o fim de semana
 	 */
 	private double[] ValorFds;
+	// Guarda as opções de carros oferecidas pela Loja
+	private String[] Carros;
 	
 	/* Método Construtor Padrão */
 	public Loja(){}
 	/* Método Construtor - Sobrecarga ao passar todos os valores por parâmetro formal */
-	public Loja(String Nome, double[] ValorSemana, double[] ValorFds){
+	public Loja(String Nome, double[] ValorSemana, double[] ValorFds, String[] Carros){
 		/* Definindo valores durante construção do objeto */
 		this.Nome = Nome;
 		this.ValorSemana = ValorSemana;
 		this.ValorFds = ValorFds;
+		this.Carros = Carros;
 	}
 	
 	/* Método Estático Responsável por Carregar Informações das Lojas da Empresa a partir de um Json Criado pelo Instalador */
@@ -68,7 +72,12 @@ public class Loja {
 				ValorFds[j] = obj.getJSONArray("ValorFds").getDouble(j);               
 			}
 			
-			Loja loja = new Loja(obj.getString("Nome"), ValorSemana, ValorFds);
+			String[] Carros = new String[obj.getJSONArray("Carros").length()];
+			for(int j = 0; j < obj.getJSONArray("Carros").length(); j++){               
+				Carros[j] = obj.getJSONArray("Carros").getString(j);               
+			}
+			
+			Loja loja = new Loja(obj.getString("Nome"), ValorSemana, ValorFds, Carros);
 			map.put(obj.getString("Nome"), loja);
 		}
 		
@@ -86,4 +95,6 @@ public class Loja {
 	
 	public void setValorFds(double[] ValorFds){ this.ValorFds = ValorFds; }
 	public double getValorFds(int index){ return ValorFds[index]; }
+	
+	public String[] getCarros(){ return Carros; }
 }
