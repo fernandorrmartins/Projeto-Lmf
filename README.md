@@ -2,7 +2,7 @@
 
 <h2>Observações Sobre o Projeto</h2>
 <ul>
-	
+	<li></li>
 </ul>
 
 <h2>Requisitos:</h2>
@@ -35,11 +35,11 @@
 <h2>Instruções:</h2>
 <ol>
 	<li>Faça o clone do Repositorio executando o comando:</br>
-	git clone https://github.com/fernandorrmartins/Projeto-Lmf.git</br>
+	" git clone https://github.com/fernandorrmartins/Projeto-Lmf.git "</br>
 	na pasta que deseja baixar o projeto</li>
 	<li>Acesse a pasta onde foi feito o clone do aplicativo</li>
 	<li>Execute o arquivo "Instalador.bat" dentro da pasta</li>
-	<li>Será criado uma pasta "Projeto Lmf" na Unidade C</li>
+	<li>Será criado uma pasta "Projeto Lmf" na Unidade Principal do Seu Computador</li>
 	<li>Será criado um arquivo "Projeto Lmf.bat" na Área de Trabalho</li>
 	<li>Será criado um arquivo "reserva.txt" na Área de Trabalho</li>
 	<li>O usuário deve adicionar uma linha ao arquivo "reserva.txt" no formato da reserva para ser analisado e processado</li>
@@ -51,6 +51,9 @@
 		<li>Obs:</li>
 		Tipo de Carro, Qtd de Pessoas e Data devem ser Separados por ':'</br>
 		Já as Datas entre sí, devem ser separadas por ','
+		<li>Obs²:</li>
+		Podem ser adicionadas quantas linhas o usuário quiser<br>
+		Cada linha vai representar uma reserva
 	</ul>
-	<li>Com o arquivo "reserva.txt" preenchido, é só executar o arquivo "Projeto Lmf.bat" na Área de Trabalho ou na pasta localizada em "c:/Projeto Lmf"</li>
+	<li>Com o arquivo "reserva.txt" preenchido, é só executar o arquivo "Projeto Lmf.bat" na Área de Trabalho ou na pasta localizada em "c:/Projeto Lmf" e todas as reservas serão apresentadas na tela</li>
 </ol>
