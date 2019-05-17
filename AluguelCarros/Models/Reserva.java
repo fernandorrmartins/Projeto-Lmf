@@ -141,7 +141,8 @@ public class Reserva {
 				// Mensagem Formatada para Apresentar a Reserva e seus Detalhes
 				String mensagem = "____________________________________________________________________";
 				// Tipos de Carros Oferecidos pela Loja
-				mensagem += "\n| Opcoes de Carro: " + Arrays.toString(loja.getCarros()).replace('[',' ').replace(']',' ');
+				mensagem += "\n| Opcoes de Carro: "
+						 +  "\n|\t" + Arrays.toString(loja.getCarros()).replace('[',' ').replace(']',' ');
 				// Quantidade de Pessoas para a Reserva
 				mensagem += "\n| Quantidade de Pessoas: " + reserva.getQtdPassageiros();
 				// Apresenta as Datas Solicitadas e seus Valores

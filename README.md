@@ -1,10 +1,5 @@
 # Projeto-Lmf
 
-<h2>Observações Sobre o Projeto</h2>
-<ul>
-	<li></li>
-</ul>
-
 <h2>Requisitos:</h2>
 <ol>
 	<li>Instalador funciona apenas no Windows</li>
