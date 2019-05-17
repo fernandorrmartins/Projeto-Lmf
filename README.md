@@ -34,8 +34,9 @@
 
 <h2>Instruções:</h2>
 <ol>
-	<li>Faça o clone do Repositorio executando o comando:
-	git clone https://github.com/fernandorrmartins/Projeto-Lmf.git</li>
+	<li>Faça o clone do Repositorio executando o comando:</br>
+	git clone https://github.com/fernandorrmartins/Projeto-Lmf.git</br>
+	na pasta que deseja baixar o projeto</li>
 	<li>Acesse a pasta onde foi feito o clone do aplicativo</li>
 	<li>Execute o arquivo "Instalador.bat" dentro da pasta</li>
 	<li>Será criado uma pasta "Projeto Lmf" na Unidade C</li>
