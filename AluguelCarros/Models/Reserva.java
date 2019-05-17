@@ -137,7 +137,7 @@ public class Reserva {
 						  : map.get("NorthCar")));
 				
 				// Representa o Preço Total das Reservas
-				Double precoTotal = 0.00;
+				Double precoTotal[] = {0.00, 0.00};
 				// Mensagem Formatada para Apresentar a Reserva e seus Detalhes
 				String mensagem = "__________________________________________________________________________________________________________________";
 				// Tipos de Carros Oferecidos pela Loja
@@ -156,10 +156,12 @@ public class Reserva {
 							 +  " | Preco Premium: R$" 
 									+ String.format("%.2f", (diaSemana.get(i) == true ? loja.getValorSemana(1) : loja.getValorFds(1)));
 					// Soma os Valores para Apresentar o Valor Total no Fim
-					precoTotal += (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0));
+					precoTotal[0] += (diaSemana.get(i) == true ? loja.getValorSemana(0) : loja.getValorFds(0));
+					precoTotal[1] += (diaSemana.get(i) == true ? loja.getValorSemana(1) : loja.getValorFds(1));
 				}
 				mensagem += "\n__________________________________________________________________________________________________________________";
-				mensagem += "\n| Valor Total: R$" + String.format("%.2f", precoTotal);
+				mensagem += "\n| Valor Total Regular: R$" + String.format("%.2f", precoTotal[0])
+						 +  " | Valor Total Premium: R$" + String.format("%.2f", precoTotal[1]);
 				mensagem += "\n__________________________________________________________________________________________________________________\n";
 				
 				System.out.println("\n" + mensagem + "\n");
